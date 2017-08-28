@@ -1,0 +1,22 @@
+workspace:
+  base: /go
+  path: src/github.com/AlekSi/drone-on-travis
+
+pipeline:
+  build:
+    image: ${GO_IMAGE=golang:1.9}
+    pull: true
+    commands:
+      - echo ${GO_IMAGE} ${MYSQL_IMAGE}
+      - go version
+      - go env
+      - pwd
+      - go test -v
+
+services:
+  mysql:
+    image: ${MYSQL_IMAGE=mysql/mysql-server:5.7}
+    pull: true
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=1
+      - MYSQL_ROOT_HOST=%
